@@ -1,21 +1,26 @@
 version: 1
 project:
-  # id: ubcgif-YEAR-AUTHORS-CONFERENCE
-  # title: TITLE
-  # description: DESCRIPTION
+  id: ubcgif-2025-kuttai-heagy-aegc
+  title: Applying Segmentation Methods In Geophysical Inversion to Improve The Recovery of Structural Features
+  description: Presentation given at AEGC 2025 in the Inverse Problems sessions.
   authors:
-    # - name: AUTHOR 1
-    #   email: EMAIL
+    - name: Johnathan C. Kuttai
+      email: jkutt@eoas.ubc.ca
+      corresponding: true
+      orcid: 0009-0006-6356-944X
+      affiliation:
+        id: ubc
+        name: Geophysical Inversion Facility, University of British Columbia, Vancouver, British Columbia
+    # - name: Johnathan C. Kuttai
+    #   email: jkutt@eoas.ubc.ca
     #   corresponding: true
-    #   orcid: ORCID
-    #   affiliation:
-    #     id: ubc
-    #     name: Geophysical Inversion Facility, University of British Columbia, Vancouver, British Columbia
-    # - name: Lindsey J. Heagy
-    #   email: lheagy@eoas.ubc.ca
-    #   corresponding: true
-    #   orcid: 0000-0002-1551-5926
+    #   orcid: 0009-0006-6356-944X
     #   affiliation: ubc
+    - name: Lindsey J. Heagy
+      affiliation: ubc
+      email: lheagy@eoas.ubc.ca
+      corresponding: true
+      orcid: 0000-0002-1551-5926
     # - name: Douglas W. Oldenburg
     #   affiliation: ubc
     #   email: doug@eos.ubc.ca
@@ -24,30 +29,29 @@ project:
   thumbnail: thumbnail.png
   # subject: Electromagnetics
   venue:
-    # title: CONFERENCE NAME
-    # url: CONFERENCE URL
+    title: Austrailian Exploration Geoscience Conference 2025
+    url: https://2025.aegc.com.au/
   # license: CC-BY-4.0
   # open_access: true
   # doi: DOI
-  # date: YYYY-MM-DD
+  date: 2025-08-28
   abbreviations:
-    # DC: direct current
-    # EM: electromagnetics
+    ADMM: Alternating Direction Method of Multipliers
+    DC: Direct-current
   # github:
   # bibliography: []
-  # keywords:
-  #   - Controlled source electromagnetics (CSEM)
-  #   - Downhole methods
-  #   - Numerical modelling
-  #   - Electrical properties
-  #   - Magnetic properties
+  keywords:
+    - segmentation
+    - geophysical inversion
+    - physical properties
+    - ADMM
 site:
   template: article-theme
   actions:
-    # - title: pdf
-    #   url: ARTICLE-NAME.pdf
-    #   static: true
-    # - title: slides
-    #   url: presentation/SLIDES-NAME.pdf
-    #   static: true
+    - title: pdf
+      url: 2025-aegc-abstract.pdf
+      static: true
+    - title: slides
+      url: presentation/2025-aegc-presentation.pdf
+      static: true
   # domains: []
