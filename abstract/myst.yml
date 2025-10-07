@@ -25,7 +25,7 @@ project:
     #   affiliation: ubc
     #   email: doug@eos.ubc.ca
     #   orcid: 0000-0002-4327-2124
-  # banner: banner.png
+  banner: banner.png
   thumbnail: thumbnail.png
   # subject: Electromagnetics
   venue:
@@ -38,8 +38,9 @@ project:
   abbreviations:
     ADMM: Alternating Direction Method of Multipliers
     DC: Direct-current
+    MT: Magnetotelluric
   # github:
-  # bibliography: []
+  bibliography: references.bib
   keywords:
     - segmentation
     - geophysical inversion

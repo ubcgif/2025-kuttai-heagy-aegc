@@ -1,29 +1,18 @@
-**Applying Segmentation Methods In Geophysical Inversion to Improve The
-Recovery of Structural Features**
+---
+title: Applying Segmentation Methods In Geophysical Inversion to Improve The Recovery of Structural Features
 
-Johnathan C. Kuttai\* Lindsey J. Heagy
+abstract: |
+  Geophysical inversions produce physical property models that are
+  interpreted to provide geologic information. In this work, we leverage
+  segmentation methods to promote the recovery of geologic structures in
+  the inversion. The segmentation is incorporated into the inversion by
+  adding a regularized segmentation as terms to the objective function.
+  The Alternating Direction Method of Multipliers (ADMM) is used to solve
+  the optimization problem. To demonstrate our approach, we present a
+  synthetic DC resistivity example and an inversion of field MT data.
+---
 
-*University of British Columbia University of British Columbia*
-
-*Vancouver, BC V6T 1Z4 Vancouver, BC V6T 1Z4*
-
-*jkutt@eoas.ubc.ca lheagy@eoas.ubc.ca*
-
-**SUMMARY**
-
-Geophysical inversions produce physical property models that are
-interpreted to provide geologic information. In this work, we leverage
-segmentation methods to promote the recovery of geologic structures in
-the inversion. The segmentation is incorporated into the inversion by
-adding a regularized segmentation as terms to the objective function.
-The Alternating Direction Method of Multipliers (ADMM) is used to solve
-the optimization problem. To demonstrate our approach, we present a
-synthetic DC resistivity example and an inversion of field MT data.
-
-**Key words:** Segmentation, geophysical inversion, physical properties,
-ADMM
-
-**INTRODUCTION**
+# Introduction
 
 Geophysicists interpret inversion models and communicate the results to
 non-geophysicists who make exploration decisions. We hope to answer
@@ -39,10 +28,10 @@ are multiple approaches for incorporating prior information and
 producing inversion results that are more indicative of typical geologic
 structures. A-priori structural information about a target\'s dip and
 orientation can be incorporated into the inversion by rotating
-derivatives in the smoothness term (Li & Oldenburg, 2000). Other methods
+derivatives in the smoothness term (@LiOldenburg2000). Other methods
 promote clustering of the physical properties during the inversion, for
-example, Fuzzy c-means (Sun & Li, 2017) or the Petrophysically and
-Geologically guided Geophysical Inversion (Astic & Oldenburg, 2020).
+example, Fuzzy c-means (@SunLi2017) or the Petrophysically and
+Geologically guided Geophysical Inversion (@Astic2019).
 These approaches require that the user specify the number of rock units
 to be used in the clustering. In this work, we are motivated to explore
 how image segmentation can be used to improve the recovery of geologic
@@ -51,9 +40,8 @@ classes.
 
 The work presented here builds upon previous work in which we developed
 an automated approach for inferring structural information during the
-inversion and incorporating this into the model regularization (Kuttai &
-Heagy, 2024). In our previous work, we used a pre-trained transformer
-network, SAM (Kirillov et al., 2023), to perform image segmentation on
+inversion and incorporating this into the model regularization (@KuttaiHeagy2024). In our previous work, we used a pre-trained transformer
+network, SAM (@Kirillov2023), to perform image segmentation on
 the physical property model at a given iteration of the inversion and
 determine the primary orientation of each unit. The orientation
 information was then incorporated into the smoothness term of the
@@ -64,31 +52,31 @@ work, we aim to include the segmentation directly into the inversion
 framework. To do so, we modify the statement of the inverse problem by
 adding a regularized segmentation to the objective function. We then use
 Alternating Direction Method of Multipliers (ADMM) to solve the
-optimization problem (Boyd et al., 2010). ADMM breaks the problem into
+optimization problem (@Boyd2011). ADMM breaks the problem into
 three steps: (1) a standard geophysical model update, (2) updating the
 segmentation, and (3) updating the constraint error term that connects
 the geophysical and segmentation update.
 
-Related work by Ravasi and Birnie (2023) adapts the inverse problem to
+Related work by @RavasiBirnie2022 adapts the inverse problem to
 include a segmentation term in the objective function for seismic
 inversions. This work requires that the number of classes be predefined
 and held constant throughout the inversion. We extend the method by
 allowing the number of classes for the segmentation term to be adaptive
 and vary from iteration to iteration. We achieve this using the adaptive
 Gaussians technique from 3D image reconstruction methods like Gaussian
-splatting (Kerbl et al., 2023). Our approach has the benefit that it
+splatting (@Kerbl2023). Our approach has the benefit that it
 produces a segmented model through the inversion, which may aid geologic
 interpretation. We illustrate that our approach improves the recovery of
 geologic structures using two examples. The first is a synthetic direct
 current (DC) resistivity example, and the second uses magnetotelluric
 (MT) data from the Athabasca basin of Saskatchewan, Canada.
 
-**METHOD AND RESULTS**
+# Method and results
 
 To incorporate segmentation into the inversion, we adapt the statement
 of the inverse problem to include two terms in addition to the usual
 data misfit ($\phi_{d}$) and model regularization ($\phi_{\text{smooth}}$). Our
-approach is similar to Ravasi and Birnie (2023) except that we use a
+approach is similar to @RavasiBirnie2022 except that we use a
 smoothness regularization on the physical property model instead of
 another total variation regularization. The first term that we add is
 $\phi_{seg}$ which promotes the recovery of a physical property model
@@ -173,51 +161,58 @@ this example, we include the smoothness for the **m** update. We
 simulate a DC resistivity survey collecting pole-pole and pole-dipole
 measurements with parameters a=25m to 250m and n=16. The synthetic model
 contains an intrusive dipping conductor and two shallow, horizontal,
-faulted layers (Figure 1a). The standard L2 recovered model, shown in
-Figure 1b, is smooth, and the dip of the intrusive unit is recovered as
+faulted layers ({ref}`fig-1`a). The standard L2 recovered model, shown in
+{ref}`fig-1`b, is smooth, and the dip of the intrusive unit is recovered as
 a more steeply dipping feature than it should be. The geophysical model
-recovered using the segmentation approach (Figure 1c), resolves the
+recovered using the segmentation approach ({ref}`fig-1`c), resolves the
 horizontal layering and improves the dip estimate of the intrusive
 conductor. The segmentation model derived from **Z** is shown in Figure
 1d, and it captures the geological features rather well. We can see the
 two shallow horizontal layers, the intrusive conductor, and we see the
 influence of the fault near x=150m as the top layer thickened. There is
 also a vertical offset between the most resistive units recovered as the
-dark blue units in Figure 1d.
+dark blue units in {ref}`fig-1`d.
 
-![](./media/image1.png)
-
-**Figure 1: Recovered model comparison when using segmentation and
+```{figure} ./media/image1.png
+---
+name: fig-1
+---
+Recovered model comparison when using segmentation and
 standard L2 methods for inversion. The data is a DC-resistivity
 simulation over a synthetic conductivity model illustrated in (a). The
 standard L2 result is shown in (b), while the recovered geophysical
 model with the regularized segmentation added to the objective function
 is shown in (c). The auxiliary space Z is used to produce the recovered
-segmentation model shown in (d).**
+segmentation model shown in (d).
+```
 
 The field example we demonstrate uses magnetotelluric data to target
 graphitic conductors that form in the faulted unconformity in the
 Athabasca basin of Saskatchewan, Canada. For this example, the
 smoothness term for the **m** update is excluded. The standard L2 shown
-in Figure 2a indicates two conductors that are not distinctively
+in {ref}`fig-2`a indicates two conductors that are not distinctively
 defined, and the dip of each is ambiguous. By adding a regularized
 segmentation to the objective function as described above, we recover a
-geophysical model that has two distinct conductors (Figures 2b). Figure
-2c shows the segmentation model derived from matrix **Z** by assigning
+geophysical model that has two distinct conductors ({ref}`fig-2`b).
+{ref}`fig-2`c shows the segmentation model derived from matrix **Z** by assigning
 each cell the physical property with the highest probability. The two
 conductors recovered have been explored extensively, and the conductor
 near 521,000m is the P2 conductor, which hosts the McArthur River Mine's
-uranium deposits (Tuncer, 2007).
+uranium deposits (@Tuncer2007).
 
-![](./media/image2.png)
-
-**Figure 2: Recovered model comparison using magnetotelluric field data
+```{figure} ./media/image2.png
+---
+name: fig-2
+---
+Recovered model comparison using magnetotelluric field data
 targeting dipping basement graphitic conductors. The standard L2
 recovered model is shown in (a). The recovered geophysical model output
 from ADMM is shown in (b), and the corresponding segmentation model in
-(c)**
+(c)
+```
 
-**CONCLUSIONS**
+
+# Conclusions
 
 We have introduced an inversion approach that leverages segmentation
 algorithms. Our work incorporates the segmentation into the inversion by
@@ -236,8 +231,8 @@ are able to distinguish multiple layers and improve the dip estimate of
 the intrusive conductive dyke. In the MT field example, we recover two
 distinctive, conductive targets that are coincident with the known P2
 fault and a second grouping of faults.
-
-**REFERENCES**
+<!--
+# References
 
 Astic, T., Oldenburg, D.W., 2019, A framework for petrophysically and
 geologically guided geophysical inversion using a dynamic Gaussian
@@ -269,4 +264,4 @@ Geophysical Journal International, 208, Pages 1201--1216
 
 Tuncer, V., 2007, Exploration for Unconformity-Type Uranium Deposits
 with Audio-Magnetotelluric Data: A Case Study from the McArthur River
-Mine, Saskatchewan, Canada: Masters Thesis, University of Alberta.
+Mine, Saskatchewan, Canada: Masters Thesis, University of Alberta. -->
